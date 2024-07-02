@@ -17,11 +17,4 @@ import { CommonModule } from '@angular/common';
     CommonModule,
   ],
 })
-export class AppComponent {
-  annualData: Investment[] = [];
-
-  onCalculate(investmentData: Investment[]) {
-    this.annualData = [];
-    this.annualData.push(...investmentData);
-  }
-}
+export class AppComponent {}
