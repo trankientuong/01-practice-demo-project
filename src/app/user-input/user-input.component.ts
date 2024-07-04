@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Investment } from '../investment-results/investment.model';
 import { investmentResultService } from '../investment-results/investment-result.service';
 
 @Component({
@@ -19,12 +18,12 @@ export class UserInputComponent {
   constructor(private investmentResultService: investmentResultService) {}
 
   onCalculate(calculateForm: NgForm) {
-    this.investmentResultService.calculateInvestmentResults(
-      this.initialInvestment,
-      this.annualInvestment,
-      this.expectedReturn,
-      this.duration
-    );
+    this.investmentResultService.calculateInvestmentResults({
+      initialInvestment: this.initialInvestment,
+      annualInvestment: this.annualInvestment,
+      expectedReturn: this.expectedReturn,
+      duration: this.duration,
+    });
     calculateForm.resetForm({
       initialInvestment: 0,
       annualInvestment: 0,
