@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Investment } from './investment.model';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 
@@ -10,5 +10,5 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
   styleUrl: './investment-results.component.css',
 })
 export class InvestmentResultsComponent {
-  @Input({ required: true }) investmentResults!: Investment[];
+  investmentResults = input<Investment[]>();
 }

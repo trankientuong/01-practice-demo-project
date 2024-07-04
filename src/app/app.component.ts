@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from './user-input/user-input.component';
 
@@ -18,10 +18,9 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class AppComponent {
-  annualData: Investment[] = [];
+  annualData = signal<Investment[] | undefined>(undefined);
 
   onCalculate(investmentData: Investment[]) {
-    this.annualData = [];
-    this.annualData.push(...investmentData);
+    this.annualData.set(investmentData);
   }
 }

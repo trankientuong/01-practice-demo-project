@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Investment } from '../investment-results/investment.model';
 
@@ -10,32 +10,32 @@ import { Investment } from '../investment-results/investment.model';
   styleUrl: './user-input.component.css',
 })
 export class UserInputComponent {
-  @Output() calculate = new EventEmitter<Investment[]>();
+  calculate = output<Investment[]>();
 
-  initialInvestment: number = 0;
-  annualInvestment: number = 0;
-  expectedReturn: number = 5;
-  duration: number = 10;
+  initialInvestment = signal('0');
+  annualInvestment = signal('0');
+  expectedReturn = signal('5');
+  duration = signal('10');
 
   onCalculate(calculateForm: NgForm) {
     const annualData: Investment[] = [];
-    let investmentValue = this.initialInvestment;
+    let investmentValue = +this.initialInvestment();
 
-    for (let i = 0; i < this.duration; i++) {
+    for (let i = 0; i < +this.duration(); i++) {
       const year = i + 1;
       const interestEarnedInYear =
-        investmentValue * (this.expectedReturn / 100);
-      investmentValue += interestEarnedInYear + this.annualInvestment;
+        investmentValue * (+this.expectedReturn() / 100);
+      investmentValue += interestEarnedInYear + +this.annualInvestment();
       const totalInterest =
-        investmentValue - this.annualInvestment * year - this.initialInvestment;
+        investmentValue - +this.annualInvestment() * year - +this.initialInvestment();
       annualData.push({
         year: year,
         interest: interestEarnedInYear,
         valueEndOfYear: investmentValue,
-        annualInvestment: this.annualInvestment,
+        annualInvestment: +this.annualInvestment(),
         totalInterest: totalInterest,
         totalAmountInvested:
-          this.initialInvestment + this.annualInvestment * year,
+          +this.initialInvestment() + +this.annualInvestment() * year,
       });
     }
     this.calculate.emit(annualData);

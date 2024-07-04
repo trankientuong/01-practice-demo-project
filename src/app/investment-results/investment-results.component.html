@@ -1,20 +1,23 @@
-<table>
-    <thead>
-        <tr>
-            <th>Year</th>
-            <th>Investment Value</th>
-            <th>Interest (Year)</th>
-            <th>Total Interest</th>
-            <th>Invested Capital</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let investmentResult of investmentResults">
-            <td>{{ investmentResult.year }}</td>
-            <td>{{ investmentResult.valueEndOfYear | currency }}</td>
-            <td>{{ investmentResult.interest | currency }}</td>
-            <td>{{ investmentResult.totalInterest | currency }}</td>
-            <td>{{ investmentResult.totalAmountInvested | currency }}</td>
-        </tr>
-    </tbody>
-</table>
+<p class="center" *ngIf="!investmentResults(); else fallback">Please enter some values and press "Calculate"</p>
+<ng-template #fallback>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Investment Value</th>
+                <th>Interest (Year)</th>
+                <th>Total Interest</th>
+                <th>Invested Capital</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let investmentResult of investmentResults()">
+                <td>{{ investmentResult.year }}</td>
+                <td>{{ investmentResult.valueEndOfYear | currency }}</td>
+                <td>{{ investmentResult.interest | currency }}</td>
+                <td>{{ investmentResult.totalInterest | currency }}</td>
+                <td>{{ investmentResult.totalAmountInvested | currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
